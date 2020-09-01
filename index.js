@@ -6,6 +6,22 @@ app.use(cors());
 app.use(express.static('./build'))
 app.use(express.json());
 
+const mongoose = require('mongoose')
+
+// DO NOT SAVE YOUR PASSWORD TO GITHUB!!
+const url =
+  'mongodb+srv://TheAlmightyCrumb:@cluster0.cmrzo.mongodb.net/note-app?retryWrites=true&w=majority'
+
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  date: Date,
+  important: Boolean,
+})
+
+const Note = mongoose.model('Note', noteSchema)
+
 let notes = [
   {
     id: 1,
